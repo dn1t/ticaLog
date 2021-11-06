@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Octokit } from '@octokit/core';
 import Nav from '../components/Nav';
 import { LocationMarkerIcon, MailIcon } from '@heroicons/react/outline';
-import { dateString, timeSince } from '../utils';
+import { timeSince } from '../utils';
 import { getAllPosts } from '../utils/posts';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
@@ -103,18 +103,20 @@ const Index = ({ posts }: { posts: { id: number; slug: string; category: string;
                 <div className='border-t border-gray-200 w-full ml-2' />
               </div>
               <section className='mt-0.5'>
-                {posts.reverse().map((post, index) => (
-                  <Link href={`/posts/${post.slug}`} key={index}>
-                    <a>
-                      <section className='py-4'>
-                        <h2 className='text-2xl font-bold leading-none inline'>{post.title}</h2>
-                        <h3 className='text-sm font-medium text-indigo-500 leading-none transition-colors inline ml-1 mt-1.5'>#{post.id.toString().padStart(3, '0')}</h3>
-                        <h3 className='text-lg'>{post.description}</h3>
-                        <h4 className='text-sm font-medium text-indigo-600'>{(post.slug === posts[0].slug ? '최신 글 — ' : '') + timeSince(post.timestamp)}</h4>
-                      </section>
-                    </a>
-                  </Link>
-                ))}
+                {posts
+                  .sort((a, b) => b.timestamp - a.timestamp)
+                  .map((post, index) => (
+                    <Link href={`/posts/${post.slug}`} key={index}>
+                      <a>
+                        <section className='py-4'>
+                          <h2 className='text-2xl font-bold leading-none inline'>{post.title}</h2>
+                          <h3 className='text-sm font-medium text-indigo-500 leading-none transition-colors inline ml-1 mt-1.5'>#{post.id.toString().padStart(3, '0')}</h3>
+                          <h3 className='text-lg'>{post.description}</h3>
+                          <h4 className='text-sm font-medium text-indigo-600'>{(post.slug === posts[0].slug ? '최신 글 — ' : '') + timeSince(post.timestamp)}</h4>
+                        </section>
+                      </a>
+                    </Link>
+                  ))}
               </section>
             </div>
             <div className='w-full md:w-64 flex-shrink-0 mt-4 md:mt-0 md:ml-10'>
