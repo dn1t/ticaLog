@@ -2,7 +2,7 @@
 category: entry
 title: 211106 엔트리 작품 탐방
 description: 오늘 엔트리를 둘러보며 발견한 예쁘거나 신박하거나 아무튼 재밌는 작품 세 개를 가져와봤어요.
-timestamp: 1636179215572
+timestamp: 1636209409469
 ---
 
 <!-- <div class="iwrap entry"><iframe src="/api/entry/616b14ea44cc5904eedab907?inject=https://pastebin.com/raw/SwfSTRHU" height="360" width="640"></iframe></div> -->
