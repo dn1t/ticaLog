@@ -72,6 +72,17 @@ const Index = ({ posts }: { posts: { id: number; slug: string; category: string;
         <div className='max-w-6xl mx-auto'>
           <Head>
             <title>ticaLog</title>
+            <meta name='robots' content='index,follow' />
+            <meta name='description' content={'ticaLog - 띠까 블로그'} />
+            <meta property='og:type' content='website' />
+            <meta property='og:title' content='ticaLog' />
+            <meta property='og:description' content={'ticaLog - 띠까 블로그'} />
+            <meta property='og:url' content='https://blog.tica.fun' />
+            <meta name='twitter:card' content='summary' />
+            <meta name='twitter:title' content='ticaLog' />
+            <meta name='twitter:description' content={'ticaLog - 띠까 블로그'} />
+            <meta name='twitter:image' content='https://blog.tica.fun' />
+            <meta name='twitter:domain' content='ticaLog' />
           </Head>
           <Nav />
           <section className='py-10 sm:py-20'>

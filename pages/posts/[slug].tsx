@@ -26,6 +26,17 @@ const Post = ({ post }: { post: { id: number; slug: string; category: string; ti
         <div className='max-w-6xl mx-auto'>
           <Head>
             <title>{post.title} - ticaLog</title>
+            <meta name='robots' content='index,follow' />
+            <meta name='description' content={post.description} />
+            <meta property='og:type' content='website' />
+            <meta property='og:title' content={`${post.title} - ticaLog`} />
+            <meta property='og:description' content={post.description} />
+            <meta property='og:url' content={`https://blog.tica.fun/posts/${post.slug}`} />
+            <meta name='twitter:card' content='summary' />
+            <meta name='twitter:title' content={`${post.title} - ticaLog`} />
+            <meta name='twitter:description' content={post.description} />
+            <meta name='twitter:image' content={`https://blog.tica.fun/posts/${post.slug}`} />
+            <meta name='twitter:domain' content='ticaLog' />
           </Head>
           <Nav />
           <div className='max-w-5xl mx-auto'>
