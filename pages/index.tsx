@@ -9,7 +9,7 @@ import { getAllPosts } from '../utils/posts';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
 
-const Index = ({ posts }: { posts: { id: number; slug: string; category: string; title: string; description: string; content: string; timestamp: number }[] }) => {
+const Index = ({ posts }: { posts: { id: number; slug: string; category: string; title: string; description: string; content: string; timestamp: number; toc: string }[] }) => {
   const [gitHubInfo, setGitHubInfo] = useState<{
     login: string;
     id: number;
@@ -78,8 +78,10 @@ const Index = ({ posts }: { posts: { id: number; slug: string; category: string;
             <h4 className='text-sm font-medium text-indigo-600'>TICALOG</h4>
             <h2 className='text-3xl sm:text-4xl lg:text-5xl font-bold leading-none'>평범한 블로그</h2>
             <div className='mt-2.5 flex'>
-              {['개발', '일상', '둣교탐방'].map((tag, index) => (
-                <div className={`${index === 0 ? '' : 'ml-1.5 '}px-3 py-1.5 rounded-lg text-sm font-medium bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors cursor-default`}>#{tag}</div>
+              {['우와', '정말', '데단헤'].map((tag, index) => (
+                <div className={`${index === 0 ? '' : 'ml-1.5 '}px-3 py-1.5 rounded-lg text-sm font-medium bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors cursor-default`} key={index}>
+                  #{tag}
+                </div>
               ))}
             </div>
           </section>
@@ -90,16 +92,14 @@ const Index = ({ posts }: { posts: { id: number; slug: string; category: string;
                 <div className='border-t border-gray-200 w-full ml-2' />
               </div>
               <section className='mt-0.5'>
-                {posts.reverse().map((post) => (
-                  <Link href={`/posts/${post.slug}`}>
+                {posts.reverse().map((post, index) => (
+                  <Link href={`/posts/${post.slug}`} key={index}>
                     <a>
                       <section className='py-4'>
                         <h2 className='text-2xl font-bold leading-none inline'>{post.title}</h2>
                         <h3 className='text-sm font-medium text-indigo-500 leading-none transition-colors inline ml-1 mt-1.5'>#{post.id.toString().padStart(3, '0')}</h3>
                         <h3 className='text-lg'>{post.description}</h3>
-                        <h4 className='text-sm font-medium text-indigo-600' title={dateString(Date.now())}>
-                          {(post.slug === posts[0].slug ? '최신 글 — ' : '') + timeSince(post.timestamp)}
-                        </h4>
+                        <h4 className='text-sm font-medium text-indigo-600'>{(post.slug === posts[0].slug ? '최신 글 — ' : '') + timeSince(post.timestamp)}</h4>
                       </section>
                     </a>
                   </Link>
@@ -114,7 +114,9 @@ const Index = ({ posts }: { posts: { id: number; slug: string; category: string;
               <section className='mt-0.5 py-4 w-full flex'>
                 <img src={gitHubInfo?.avatar_url ?? ''} className='h-12 w-12 rounded-full border border-gray-200' alt='tica' />
                 <div className='flex-col ml-3'>
-                  <div className='text-2xl font-bold leading-none'>{gitHubInfo?.name}</div>
+                  <a href='https://github.com/thoratica' target='_blank'>
+                    <div className='text-2xl font-bold leading-none'>{gitHubInfo?.name}</div>
+                  </a>
                   <div>{gitHubInfo?.bio}</div>
                   <div className='text-sm flex items-center text-gray-600 leading-none mt-0.5'>
                     <LocationMarkerIcon className='h-4 w-4 mr-0.5' />

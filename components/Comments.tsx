@@ -8,9 +8,9 @@ const Comments = () => {
 
     const utterancesConfig = {
       src: 'https://utteranc.es/client.js',
-      repo: 'user/repo',
-      theme: '선택한 테마',
-      'issue-term': '포스트 페이지 매핑 방법',
+      repo: 'thoratica/ticaLog',
+      theme: 'github-light',
+      'issue-term': 'pathname',
       async: true,
       crossorigin: 'anonymous',
     };
@@ -22,7 +22,7 @@ const Comments = () => {
     commentRef.current?.appendChild(utterances);
   }, []);
 
-  return <div className='comments' ref={commentRef}></div>;
+  return <div className='w-full' ref={commentRef}></div>;
 };
 
 export default Comments;

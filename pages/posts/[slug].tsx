@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Comments from '../../components/Comments';
 import Nav from '../../components/Nav';
 import { getAllPosts, getPost } from '../../utils/posts';
 
@@ -9,8 +10,9 @@ type Params = {
   };
 };
 
-const Post = ({ post }: { post: { id: number; slug: string; category: string; title: string; description: string; content: string; timestamp: number } | undefined }) => {
+const Post = ({ post }: { post: { id: number; slug: string; category: string; title: string; description: string; content: string; timestamp: number; toc: string } | undefined }) => {
   const [content, setContent] = useState('');
+  const articleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setContent(post?.content ?? '');
@@ -23,7 +25,7 @@ const Post = ({ post }: { post: { id: number; slug: string; category: string; ti
       <div className='h-full px-6 sm:px-10 bg-white dark:bg-gray-900'>
         <div className='max-w-6xl mx-auto'>
           <Head>
-            <title>ticaLog</title>
+            <title>{post.title} - ticaLog</title>
           </Head>
           <Nav />
           <div className='max-w-5xl mx-auto'>
@@ -33,24 +35,28 @@ const Post = ({ post }: { post: { id: number; slug: string; category: string; ti
               <h3 className='mt-2 text-lg text-gray-700'>{post.description}</h3>
             </section>
             <div className='flex pb-8 flex-col-reverse md:flex-row'>
-              <div className='flex flex-col'>
+              <div className='flex flex-col w-full'>
                 <div className='w-full mt-4 md:mt-0'>
-                  <article id='article' className='text-lg' dangerouslySetInnerHTML={{ __html: content }} />
+                  <article id='article' className='text-lg' dangerouslySetInnerHTML={{ __html: content }} ref={articleRef} />
                 </div>
                 <div className='w-full mt-4'>
                   <div className='flex items-center'>
                     <h4 className='text-sm font-medium text-indigo-600'>COMMENTS</h4>
                     <div className='border-t border-gray-200 w-full ml-2' />
                   </div>
-                  <section className='mt-0.5 py-4 w-full flex'></section>
+                  <section className='mt-0.5 py-4 w-full flex'>
+                    <Comments />
+                  </section>
                 </div>
               </div>
               <div className='w-full md:w-64 flex-shrink-0 md:ml-10'>
-                <div className='flex items-center'>
-                  <h4 className='text-sm font-medium text-indigo-600'>INDEX</h4>
-                  <div className='border-t border-gray-200 w-full ml-2' />
+                <div className='md:sticky md:top-36'>
+                  <div className='flex items-center'>
+                    <h4 className='text-sm font-medium text-indigo-600 leading-none'>TOC</h4>
+                    <div className='border-t border-gray-200 w-full ml-2' />
+                  </div>
+                  <section className='mt-0.5 py-4 w-full flex'>{post.toc.trim() === '' ? <div className='text-gray-700 font-medium pl-2'>목차가 없습니다.</div> : <div id='toc' dangerouslySetInnerHTML={{ __html: post.toc }} />}</section>
                 </div>
-                <section className='mt-0.5 py-4 w-full flex'></section>
               </div>
             </div>
           </div>
