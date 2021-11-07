@@ -52,12 +52,12 @@
 }
 
 #article .iwrap {
-  margin: 1rem 0;
+  margin: 1rem 0 0.3rem 0;
 }
 
 #article .iwrap.entry {
   position: relative;
-  padding-bottom: 63%;
+  padding-bottom: 67%;
 }
 
 #article .iwrap iframe {
@@ -95,4 +95,18 @@
 
 #toc ul li a:hover {
   color: rgb(17, 24, 39);
+}
+
+@media (max-width: 500px) {
+  #article .iwrap.entry {
+    position: relative;
+    padding-bottom: 70%;
+  }
+}
+
+@media (max-width: 400px) {
+  #article .iwrap.entry {
+    position: relative;
+    padding-bottom: 75%;
+  }
 }

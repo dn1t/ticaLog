@@ -14,7 +14,7 @@ export const getAllPosts = (): { id: number; slug: string; category: string; tit
 
       const { data, content: MDContent } = matter(rawContent);
       const content = marked.parse(MDContent).replace(/\<a href\=/gi, '<a target="_blank" href=');
-      const toc = marked.parse(_toc(MDContent).content).replace(/\<a href\=/gi, '<a target="_blank" href=');
+      const toc = marked.parse(_toc(MDContent).content);
 
       return { slug, category: data.category ?? '카테고리 없음', title: data.title ?? '제목 없음', description: data.description ?? '', content, timestamp: data.timestamp, toc };
     })

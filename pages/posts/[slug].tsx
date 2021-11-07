@@ -16,6 +16,10 @@ const Post = ({ post }: { post: { id: number; slug: string; category: string; ti
 
   useEffect(() => {
     setContent(post?.content ?? '');
+
+    // (window as any).resizeIframe = (el: HTMLIFrameElement) => {
+    //   el.style.height = el?.contentWindow?.document.documentElement.scrollHeight + 'px';
+    // };
   }, []);
 
   if (post === undefined) return <div></div>;
